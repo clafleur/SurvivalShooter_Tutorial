@@ -22,6 +22,10 @@ public class PlayerMovement : MonoBehaviour
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
 
+        Move(h,v);
+        Turning();
+        Animating(h, v);
+
     }
 
     void Move(float h, float v)
@@ -38,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
 
         RaycastHit floorHit;
 
-        if (Physics.Raycast(cameRay, out floorHit, camRayLength, floorMask))
+        if (Physics.Raycast(camRay, out floorHit, camRayLength, floorMask))
         {
             Vector3 playerToMouse = floorHit.point - transform.position;
             playerToMouse.y = 0.0f;
@@ -51,5 +55,6 @@ public class PlayerMovement : MonoBehaviour
     {
         //check to see if player is walking
         bool walking = h != 0.0f || v != 0.0f;
+        anim.SetBool("IsWalking", walking);
     }
 }
